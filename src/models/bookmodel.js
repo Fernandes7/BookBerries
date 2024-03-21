@@ -8,5 +8,5 @@ const bookSchema=new mongoose.Schema({
     bookprice:{type:Number,required:true}
 })
 
-const BookSchema=mongoose.model("Bookdata",bookSchema)
+const BookSchema=mongoose.model("Bookdata",bookSchema)   
 export {BookSchema}

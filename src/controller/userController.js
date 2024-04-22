@@ -31,7 +31,7 @@ if(finduser)
 {
     const passowrdmatch=await bcrypt.compare(req.body.data.userpassword,finduser.userpassword)
     if(passowrdmatch)
-    res.status(200).json({success:true,data:"Loggined Successfully"})
+    res.status(200).json({success:true,data:finduser})
     else
     res.status(200).json({success:false,data:"Invalid Password"})
 }

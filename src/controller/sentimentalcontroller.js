@@ -4,6 +4,7 @@ const { SentimentAnalyzer, PorterStemmer }=pkg
 
 const findsentimentalscore=async(req,res)=>{
     try{
+    console.log(req.body)
     const review=req.body.data.bookreview
     const arrayreview=review.split(" ")
     const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn');
@@ -18,7 +19,7 @@ const findsentimentalscore=async(req,res)=>{
     } else {
         score = 0.5;
     }
-    const newreview=new RewiewSchema({bookid:req.body.data.bookid,bookreview:review,bookscore:score})
+    const newreview=new RewiewSchema({bookid:req.body.data.bookid,bookreview:review,bookscore:score,userid:req.body.data.userid})
     const saveddata=await newreview.save()
     if(saveddata)
     res.json({success:true,data:saveddata})
@@ -32,7 +33,8 @@ const findsentimentalscore=async(req,res)=>{
 
 const fetchReview=async(req,res)=>{
     try{
-    const fetchdata=await RewiewSchema.find({bookid:req.body.data})
+    console.log(req.body)
+    const fetchdata=await RewiewSchema.find({bookid:req.body.data}).populate("userid")
     if(fetchdata)
     res.json({success:true,data:fetchdata})
     }

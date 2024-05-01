@@ -28,5 +28,18 @@ const viewallbook=async(req,res)=>{
     }
 }
 
+const deletebook=async(req,res)=>{
+    try{
+const deteted=await BookSchema.findByIdAndDelete(req.body.data)
+if(deteted)
+res.status(200).json({success:true,data:"Book Deleted Successfully"})
+    }
+    catch(e)
+    {
+        res.status(500).json({success:false,data:e.message})
+    }
 
-export {addBook,viewallbook}    
+}
+
+
+export {addBook,viewallbook,deletebook}    

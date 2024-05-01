@@ -45,4 +45,17 @@ catch(e)
 }
 
 
-export {signup,login}
+const viewallusers=async(req,res)=>{
+    try{
+    const users=await UserSchema.find()
+    if(users)
+    res.status(200).json({success:true,data:users})
+    }
+    catch(e)
+    {
+        res.status(500).json({success:false,data:e.message})
+    }
+}
+
+
+export {signup,login,viewallusers}

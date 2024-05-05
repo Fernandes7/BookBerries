@@ -1,4 +1,5 @@
 import { BookSchema } from "../models/bookmodel.js"
+import { OrderSchema } from "../models/orderModel.js"
 
 
 const addBook=async(req,res)=>{
@@ -41,5 +42,37 @@ res.status(200).json({success:true,data:"Book Deleted Successfully"})
 
 }
 
+const orderbook=async(req,res)=>{
+    try{
+    const findbook=await OrderSchema.findOne({bookid:req.body.data.bookid})
+    if(findbook)
+    {
+        findbook.ordercount=findbook.ordercount+1
+        await findbook.save()
+    }
+    else
+    {
+        const newbookorder=new OrderSchema(req.body.data)
+        await newbookorder.save()
+    }
+    res.status(200).json({success:true,data:"Book Orderd Successfully"})
+    }
+    catch(e)
+    {
+        res.status(500).json({success:false,data:e.message})
+    }
+}
 
-export {addBook,viewallbook,deletebook}    
+
+const viewallorders=async(req,res)=>{
+    try{
+    const orders=await OrderSchema.find().populate("bookid")
+    res.status(200).json({success:true,data:orders})
+    }
+    catch(e)
+    {
+        res.status(500).json({success:false,data:e.message})
+    }
+}
+
+export {addBook,viewallbook,deletebook,orderbook,viewallorders}    

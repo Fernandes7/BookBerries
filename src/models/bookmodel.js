@@ -5,8 +5,9 @@ const bookSchema=new mongoose.Schema({
     bookimage:{type:String,required:true},
     bookauthor:{type:String,required:true},
     bookpublisher:{type:String,required:true},
-    bookprice:{type:Number,required:true}
-})
+    bookprice:{type:Number,required:true},
+    category:{type:String,required:true}
+},{timestamps:true})
 
 const BookSchema=mongoose.model("Bookdata",bookSchema)   
 export {BookSchema}
